@@ -1,0 +1,14 @@
+{
+  "name": "dc-uniapp-mobile",
+  "appid": "__UNI__DCUNIAPPMOBILE",
+  "description": "",
+  "versionName": "0.1.0",
+  "versionCode": 1,
+  "transformPx": false,
+  "mp-weixin": {
+    "appid": "wx197a077f65940ce3",
+    "setting": {
+      "urlCheck": false
+    }
+  }
+}
