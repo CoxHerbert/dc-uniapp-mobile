@@ -1,22 +1,49 @@
 <template>
-  <view class="page">
-    <wd-card title="欢迎使用 Wot UI">
-      <view class="content">
-        <wd-text text="UniApp + Wot Design Uni" type="secondary" />
-      </view>
-      <wd-button type="primary" block>立即开始</wd-button>
-    </wd-card>
-  </view>
+	<view class="content">
+		<image class="logo" src="/static/logo.png"></image>
+		<view>
+			<text class="title">{{title}}</text>
+		</view>
+	</view>
 </template>
 
-<script setup></script>
+<script>
+	export default {
+		data() {
+			return {
+				title: 'Hello'
+			}
+		},
+		onLoad() {
 
-<style scoped>
-.page {
-  padding: 24rpx;
-}
+		},
+		methods: {
 
-.content {
-  margin: 16rpx 0 24rpx;
-}
+		}
+	}
+</script>
+
+<style>
+	.content {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		justify-content: center;
+	}
+
+	.logo {
+		height: 200rpx;
+		width: 200rpx;
+		margin: 200rpx auto 50rpx auto;
+	}
+
+	.text-area {
+		display: flex;
+		justify-content: center;
+	}
+
+	.title {
+		font-size: 36rpx;
+		color: #8f8f94;
+	}
 </style>
