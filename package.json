@@ -1,0 +1,13 @@
+{
+  "name": "dc-uniapp-mobile",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev:h5": "uni dev -p h5",
+    "build:h5": "uni build -p h5"
+  },
+  "dependencies": {
+    "vue": "^3.4.21",
+    "wot-design-uni": "^1.5.0"
+  }
+}
