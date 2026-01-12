@@ -1,0 +1,58 @@
+/* flex布局 */
+.flex {
+	display: flex;
+}
+
+.flex-one {
+	flex: 1;
+}
+
+.flex-c {
+	align-items: center;
+}
+
+.flex-between {
+	display: flex;
+	justify-content: space-between;
+}
+
+.flex-evenly {
+	display: flex;
+	justify-content: space-evenly;
+}
+
+.bold {
+	font-weight: bold;
+}
+
+/* 文字方向 */
+
+.t-a-c {
+	text-align: center;
+}
+
+.t-a-r {
+	text-align: right;
+}
+
+.t-a-l {
+	text-align: left;
+}
+
+/*字体超出部分省略号*/
+.txt-cut1 {
+	overflow: hidden;
+	text-overflow: ellipsis;
+	display: -webkit-box;
+	word-break: break-all;
+	-webkit-line-clamp: 1;
+	-webkit-box-orient: vertical;
+}
+
+.txt-cut2 {
+	overflow: hidden;
+	text-overflow: ellipsis;
+	display: -webkit-box;
+	-webkit-line-clamp: 2;
+	-webkit-box-orient: vertical;
+}

@@ -1,0 +1,62 @@
+{
+  "name": "bip-mobile",
+  "private": true,
+  "type": "module",
+  "packageManager": "npm@10",
+  "scripts": {
+    "dev": "vite --host",
+    "build": "vite build",
+    "build:test": "vite build --mode test",
+    "preview": "vite preview",
+    "lint": "eslint .",
+    "format": "prettier -w .",
+    "test": "vitest"
+  },
+  "dependencies": {
+    "@apollo/client": "^4.0.9",
+    "@vant/area-data": "^2.1.0",
+    "axios": "^1.7.2",
+    "crypto-js": "^4.2.0",
+    "dayjs": "^1.11.18",
+    "html5-qrcode": "^2.3.8",
+    "js-base64": "^3.7.8",
+    "js-cookie": "^3.0.5",
+    "markdown-it": "^14.1.0",
+    "md5": "^2.3.0",
+    "nprogress": "^0.2.0",
+    "pinia": "^2.1.7",
+    "qrcode.vue": "^3.6.0",
+    "sm-crypto": "^0.3.13",
+    "socket.io-client": "^4.8.1",
+    "vant": "^4.9.0",
+    "vconsole": "^3.15.1",
+    "vue": "^3.4.38",
+    "vue-i18n": "^9.14.0",
+    "vue-router": "^4.4.5",
+    "weixin-js-sdk": "^1.6.5",
+    "wework-js-sdk": "^1.2.1"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.34.0",
+    "@vitejs/plugin-vue": "^5.0.5",
+    "@vue/test-utils": "^2.4.6",
+    "axios-mock-adapter": "^2.1.0",
+    "eslint": "^9.11.0",
+    "eslint-config-prettier": "^10.1.8",
+    "eslint-plugin-vue": "^9.33.0",
+    "globals": "^16.3.0",
+    "jsdom": "^26.1.0",
+    "lint-staged": "^15.2.10",
+    "prettier": "^3.3.3",
+    "sass": "^1.92.0",
+    "terser": "^5.43.1",
+    "vite": "^5.4.2",
+    "vitest": "^2.0.5"
+  },
+  "lint-staged": {
+    "*.{js,vue,json,md}": [
+      "prettier -w",
+      "eslint --fix"
+    ]
+  }
+}
