@@ -1,0 +1,10 @@
+import website from '@/config/website';
+import { sm2 } from 'sm-crypto';
+
+export function encrypt(data) {
+  try {
+    return sm2.doEncrypt(data, website.oauth2.publicKey, 0);
+  } catch {
+    return '';
+  }
+}
