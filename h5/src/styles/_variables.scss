@@ -1,0 +1,28 @@
+// Global SCSS variables and mixins
+// You can extend these as needed
+
+// Colors
+$color-primary: #409eff;
+$color-success: #67c23a;
+$color-warning: #e6a23c;
+$color-danger: #f56c6c;
+$color-info: #909399;
+
+// Typography
+$font-size-base: 14px;
+$font-size-sm: 12px;
+$font-size-lg: 16px;
+
+// Spacing
+$sp-1: 4px;
+$sp-2: 8px;
+$sp-3: 12px;
+$sp-4: 16px;
+$sp-5: 20px;
+
+// Mixin: flex center
+@mixin flex-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}

@@ -1,0 +1,89 @@
+// 字典回显样式
+.dict {
+    display: inline-block;
+    padding: 4px 6px;
+    font-weight: 400;
+    font-size: 12px;
+    border-radius: 4px;
+    line-height: 12px;
+    overflow: hidden;
+
+    &-text {
+        color: #000;
+    }
+
+    &-default {
+        color: #1d65f3;
+        background-color: #1d65f31a;
+    }
+
+    &-1 {
+        color: #67c23a;
+        background-color: rgb(224.6, 242.8, 215.6);
+    }
+
+    &-2 {
+        color: #e6a23c;
+        background-color: rgb(252.5, 245.7, 235.5);
+    }
+
+    &-3 {
+        color: #f56c6c;
+        background-color: rgb(253, 225.6, 225.6);
+    }
+
+    &-4 {
+        color: #909399;
+        background-color: rgb(232.8, 233.4, 234.6);
+    }
+
+    &-5 {
+        color: #fff;
+        background-color: #11afa7;
+    }
+
+    &-6 {
+        color: #fff;
+        background-color: #83cf5c;
+    }
+
+    &-7 {
+        color: #fff;
+        background-color: #168be8;
+    }
+
+    &-8 {
+        color: #fff;
+        background-color: #994fe1;
+    }
+
+    &-9 {
+        color: #fff;
+        background-color: #000;
+    }
+
+    &-10 {
+        color: #fff;
+        background-color: #cccccc;
+    }
+
+    &-11 {
+        color: #f78431;
+        background-color: rgba(247, 132, 49, 0.1);
+    }
+
+    &-12 {
+        color: #23c69f;
+        background-color: rgba(35, 198, 159, 0.1);
+    }
+
+    &-13 {
+        color: #1d65f3;
+        background-color: rgba(29, 101, 243, 0.1);
+    }
+
+    &-14 {
+        color: #fff;
+        background-color: #f56c6c;
+    }
+}
