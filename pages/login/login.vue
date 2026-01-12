@@ -7,33 +7,38 @@
         <view class="subtitle">请使用账号继续</view>
       </view>
 
-      <wd-form ref="formRef" :model="form" class="login-form">
-        <wd-input
-          v-model="form.phone"
-          type="number"
-          label="手机号"
-          placeholder="请输入手机号"
-          clearable
-        />
-        <wd-input
-          v-model="form.password"
-          type="password"
-          label="密码"
-          placeholder="请输入密码"
-          clearable
-        />
-        <view class="actions">
-          <wd-button type="primary" block @click="handleLogin">
-            登录
-          </wd-button>
-          <wd-button block plain @click="handleRegister">
-            注册账号
-          </wd-button>
+      <view class="login-form">
+        <view class="field">
+          <text class="label">手机号</text>
+          <input
+            v-model="form.phone"
+            type="number"
+            class="input"
+            placeholder="请输入手机号"
+          />
         </view>
-      </wd-form>
+        <view class="field">
+          <text class="label">密码</text>
+          <input
+            v-model="form.password"
+            type="password"
+            class="input"
+            placeholder="请输入密码"
+          />
+        </view>
+        <view class="actions">
+          <button class="button primary" @click="handleLogin">登录</button>
+          <button class="button ghost" @click="handleRegister">注册账号</button>
+        </view>
+      </view>
 
       <view class="footer">
-        <wd-checkbox v-model="form.remember">记住我</wd-checkbox>
+        <checkbox-group class="remember" @change="handleRememberChange">
+          <label class="remember-label">
+            <checkbox value="remember" :checked="form.remember" />
+            <text>记住我</text>
+          </label>
+        </checkbox-group>
         <view class="link" @click="handleForgot">忘记密码？</view>
       </view>
     </view>
@@ -68,6 +73,10 @@ const handleForgot = () => {
     title: "请联系管理员",
     icon: "none",
   });
+};
+
+const handleRememberChange = (event) => {
+  form.remember = event.detail.value.includes("remember");
 };
 </script>
 
@@ -123,12 +132,53 @@ const handleForgot = () => {
 
 .login-form {
   margin-top: 24rpx;
+  display: grid;
+  gap: 24rpx;
+}
+
+.field {
+  display: grid;
+  gap: 12rpx;
+}
+
+.label {
+  font-size: 24rpx;
+  color: #1d2a44;
+  font-weight: 500;
+}
+
+.input {
+  height: 84rpx;
+  padding: 0 24rpx;
+  border-radius: 20rpx;
+  background-color: #f5f7fb;
+  font-size: 28rpx;
+  color: #1d2a44;
 }
 
 .actions {
-  margin-top: 32rpx;
+  margin-top: 8rpx;
   display: grid;
-  gap: 20rpx;
+  gap: 16rpx;
+}
+
+.button {
+  border-radius: 20rpx;
+  font-size: 28rpx;
+  line-height: 84rpx;
+  height: 84rpx;
+  padding: 0;
+}
+
+.button.primary {
+  background: #3a6cff;
+  color: #fff;
+}
+
+.button.ghost {
+  background: transparent;
+  border: 2rpx solid #dbe3f4;
+  color: #3a6cff;
 }
 
 .footer {
@@ -138,6 +188,17 @@ const handleForgot = () => {
   justify-content: space-between;
   font-size: 24rpx;
   color: #7a8599;
+}
+
+.remember {
+  display: flex;
+  align-items: center;
+}
+
+.remember-label {
+  display: flex;
+  align-items: center;
+  gap: 12rpx;
 }
 
 .link {
