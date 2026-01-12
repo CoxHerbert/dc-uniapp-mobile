@@ -42,9 +42,7 @@
 </template>
 
 <script>
-import { loginByUsername } from '@/api/auth';
 import { KEYS } from '@/constants/keys';
-import { setRefreshToken, setToken } from '@/utils/auth';
 import { extractLoginInfo } from '@/utils/login-info';
 
 export default {
@@ -103,22 +101,19 @@ export default {
 
       this.loading = true;
       try {
-        const payload = await loginByUsername({
+        const payload = await this.$store.dispatch('auth/loginByUsername', {
           ...this.form,
           password: this.form.password,
         });
 
-        const data = payload?.data ?? payload;
-        const accessToken = data?.access_token || data?.accessToken || data?.token;
-        const refreshToken = data?.refresh_token || data?.refreshToken;
-
-        if (accessToken) {
-          setToken(accessToken);
-        }
-        if (refreshToken) {
-          setRefreshToken(refreshToken);
+        try {
+          await this.$store.dispatch('user/fetchUserInfo');
+        } catch (error) {
+          console.warn('[account-login] fetchUserInfo failed:', error);
         }
 
+        const loginInfo = extractLoginInfo(payload);
+        await this.$store.dispatch('user/mergeLoginInfo', loginInfo);
         this.persistLoginInfo(payload);
 
         if (this.form.remember) {
