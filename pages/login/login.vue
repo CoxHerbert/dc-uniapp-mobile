@@ -7,29 +7,32 @@
         <view class="subtitle">请使用账号密码登录</view>
       </view>
 
-      <wd-form ref="formRef" :model="form" class="login-form">
-        <wd-input
-          v-model="form.username"
-          label="账号"
-          placeholder="请输入账号"
-          clearable
-        />
-        <wd-input
-          v-model="form.password"
-          :type="showPassword ? 'text' : 'password'"
-          label="密码"
-          placeholder="请输入密码"
-          clearable
-        />
-        <view class="actions">
-          <wd-button type="primary" block :loading="loading" :disabled="loading" @click="handleLogin">
-            登录
-          </wd-button>
+      <view class="login-form">
+        <view class="form-item">
+          <text class="label">账号</text>
+          <input v-model="form.username" class="input" placeholder="请输入账号" />
         </view>
-      </wd-form>
+        <view class="form-item">
+          <text class="label">密码</text>
+          <input
+            v-model="form.password"
+            class="input"
+            :password="!showPassword"
+            placeholder="请输入密码"
+          />
+        </view>
+        <view class="actions">
+          <button class="primary-button" :disabled="loading" @click="handleLogin">
+            {{ loading ? '登录中…' : '登录' }}
+          </button>
+        </view>
+      </view>
 
       <view class="footer">
-        <wd-checkbox v-model="form.remember">记住账号</wd-checkbox>
+        <view class="remember">
+          <switch :checked="form.remember" @change="toggleRemember" />
+          <text class="remember-text">记住账号</text>
+        </view>
         <view class="link" @click="togglePassword">
           {{ showPassword ? '隐藏密码' : '显示密码' }}
         </view>
@@ -46,7 +49,6 @@ import { KEYS } from '@/constants/keys';
 import { setRefreshToken, setToken } from '@/utils/auth';
 import { extractLoginInfo } from '@/utils/login-info';
 
-const formRef = ref(null);
 const loading = ref(false);
 const showPassword = ref(false);
 const redirectUrl = ref('');
@@ -71,6 +73,10 @@ onLoad((options) => {
 
 const togglePassword = () => {
   showPassword.value = !showPassword.value;
+};
+
+const toggleRemember = (event) => {
+  form.remember = event?.detail?.value ?? !form.remember;
 };
 
 const persistLoginInfo = (payload) => {
@@ -200,10 +206,42 @@ const handleLogin = async () => {
   margin-top: 24rpx;
 }
 
+.form-item {
+  display: flex;
+  flex-direction: column;
+  gap: 12rpx;
+  margin-bottom: 24rpx;
+}
+
+.label {
+  font-size: 24rpx;
+  color: #1d2a44;
+}
+
+.input {
+  height: 84rpx;
+  padding: 0 24rpx;
+  border-radius: 16rpx;
+  background: #f5f7fb;
+  font-size: 28rpx;
+}
+
 .actions {
-  margin-top: 32rpx;
-  display: grid;
-  gap: 20rpx;
+  margin-top: 24rpx;
+}
+
+.primary-button {
+  width: 100%;
+  height: 88rpx;
+  border-radius: 16rpx;
+  background: #3a6cff;
+  color: #fff;
+  font-size: 32rpx;
+  font-weight: 600;
+}
+
+.primary-button[disabled] {
+  opacity: 0.6;
 }
 
 .footer {
@@ -211,6 +249,17 @@ const handleLogin = async () => {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  font-size: 24rpx;
+  color: #7a8599;
+}
+
+.remember {
+  display: flex;
+  align-items: center;
+  gap: 12rpx;
+}
+
+.remember-text {
   font-size: 24rpx;
   color: #7a8599;
 }
