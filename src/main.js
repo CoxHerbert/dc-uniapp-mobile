@@ -3,7 +3,7 @@ import { createPinia } from 'pinia';
 import App from './App.vue';
 import i18n from './locales';
 import WotDesign from 'wot-design-uni';
-import 'wot-design-uni/dist/style.css';
+import 'wot-design-uni/style';
 
 export function createApp() {
   const app = createSSRApp(App);
