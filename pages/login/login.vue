@@ -4,70 +4,145 @@
       <view class="brand">
         <view class="logo">DC</view>
         <view class="title">欢迎回来</view>
-        <view class="subtitle">请使用账号继续</view>
+        <view class="subtitle">请使用账号密码登录</view>
       </view>
 
       <wd-form ref="formRef" :model="form" class="login-form">
         <wd-input
-          v-model="form.phone"
-          type="number"
-          label="手机号"
-          placeholder="请输入手机号"
+          v-model="form.username"
+          label="账号"
+          placeholder="请输入账号"
           clearable
         />
         <wd-input
           v-model="form.password"
-          type="password"
+          :type="showPassword ? 'text' : 'password'"
           label="密码"
           placeholder="请输入密码"
           clearable
         />
         <view class="actions">
-          <wd-button type="primary" block @click="handleLogin">
+          <wd-button type="primary" block :loading="loading" :disabled="loading" @click="handleLogin">
             登录
-          </wd-button>
-          <wd-button block plain @click="handleRegister">
-            注册账号
           </wd-button>
         </view>
       </wd-form>
 
       <view class="footer">
-        <wd-checkbox v-model="form.remember">记住我</wd-checkbox>
-        <view class="link" @click="handleForgot">忘记密码？</view>
+        <wd-checkbox v-model="form.remember">记住账号</wd-checkbox>
+        <view class="link" @click="togglePassword">
+          {{ showPassword ? '隐藏密码' : '显示密码' }}
+        </view>
       </view>
     </view>
   </view>
 </template>
 
 <script setup>
-import { reactive } from "vue";
+import { reactive, ref } from 'vue';
+import { onLoad } from '@dcloudio/uni-app';
+import { loginByUsername } from '@/api/auth';
+import { KEYS } from '@/constants/keys';
+import { setRefreshToken, setToken } from '@/utils/auth';
+import { extractLoginInfo } from '@/utils/login-info';
+
+const formRef = ref(null);
+const loading = ref(false);
+const showPassword = ref(false);
+const redirectUrl = ref('');
 
 const form = reactive({
-  phone: "",
-  password: "",
-  remember: false,
+  tenantId: '000000',
+  deptId: '',
+  roleId: '',
+  username: uni.getStorageSync(KEYS.LAST_USERNAME) || '',
+  password: '',
+  type: 'account',
+  code: '',
+  key: '',
+  remember: true,
 });
 
-const handleLogin = () => {
-  uni.showToast({
-    title: "登录功能待接入",
-    icon: "none",
-  });
+onLoad((options) => {
+  if (options?.redirect) {
+    redirectUrl.value = decodeURIComponent(options.redirect);
+  }
+});
+
+const togglePassword = () => {
+  showPassword.value = !showPassword.value;
 };
 
-const handleRegister = () => {
-  uni.showToast({
-    title: "注册功能待接入",
-    icon: "none",
-  });
+const persistLoginInfo = (payload) => {
+  const info = extractLoginInfo(payload);
+  if (info) {
+    uni.setStorageSync(KEYS.LOGIN_INFO, info);
+  }
 };
 
-const handleForgot = () => {
-  uni.showToast({
-    title: "请联系管理员",
-    icon: "none",
-  });
+const applyRedirect = () => {
+  const target = redirectUrl.value;
+  if (!target) return false;
+  if (target.includes('pages/login/login')) return false;
+  uni.redirectTo({ url: target });
+  return true;
+};
+
+const handleLogin = async () => {
+  if (loading.value) return;
+  if (!form.username || !form.password) {
+    uni.showToast({
+      title: '请输入账号和密码',
+      icon: 'none',
+    });
+    return;
+  }
+
+  loading.value = true;
+  try {
+    const payload = await loginByUsername({
+      ...form,
+      password: form.password,
+    });
+
+    const data = payload?.data ?? payload;
+    const accessToken = data?.access_token || data?.accessToken || data?.token;
+    const refreshToken = data?.refresh_token || data?.refreshToken;
+
+    if (accessToken) {
+      setToken(accessToken);
+    }
+    if (refreshToken) {
+      setRefreshToken(refreshToken);
+    }
+
+    persistLoginInfo(payload);
+
+    if (form.remember) {
+      uni.setStorageSync(KEYS.LAST_USERNAME, form.username);
+    } else {
+      uni.removeStorageSync(KEYS.LAST_USERNAME);
+    }
+
+    uni.showToast({
+      title: '登录成功',
+      icon: 'success',
+    });
+
+    if (!applyRedirect()) {
+      const pages = getCurrentPages();
+      if (pages.length > 1) {
+        uni.navigateBack();
+      }
+    }
+  } catch (error) {
+    uni.showToast({
+      title: error?.message || '登录失败，请重试',
+      icon: 'none',
+    });
+  } finally {
+    loading.value = false;
+  }
 };
 </script>
 
