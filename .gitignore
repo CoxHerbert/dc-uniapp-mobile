@@ -1,27 +1,21 @@
-.DS_Store
-.vscode
-node_modules
-dist/
-*-*-dist/
-public/version.json
-
-
-/tests/e2e/videos/
-/tests/e2e/screenshots/
-
-# local env files
-.env.local
-.env.*.local
-
-# log files
+# Logs
+logs
+*.log
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
 
-# editor directories and files
+node_modules
+.DS_Store
+dist
+*.local
+
+# Editor directories and files
 .idea
 *.suo
 *.ntvs*
 *.njsproj
 *.sln
-*.sw*
+*.sw?
