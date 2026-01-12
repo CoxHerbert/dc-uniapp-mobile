@@ -1,8 +1,15 @@
-import { createSSRApp } from 'vue';
-import App from './App.vue';
+import Vue from 'vue'
+import App from './App.vue'
+
+Vue.config.productionTip = false
+App.mpType = 'app'
+
+const app = new Vue({
+  ...App
+})
+
 export function createApp() {
-    const app = createSSRApp(App);
-    return {
-        app,
-    };
+  return {
+    app
+  }
 }
