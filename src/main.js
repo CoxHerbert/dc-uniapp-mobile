@@ -1,11 +1,14 @@
-import { createSSRApp } from 'vue';
+import Vue from 'vue';
 import App from './App.vue';
-import WotDesignUni from 'wot-design-uni';
+import store from './store';
 
-export function createApp() {
-    const app = createSSRApp(App);
-    app.use(WotDesignUni);
-    return {
-        app,
-    };
-}
+Vue.config.productionTip = false;
+
+App.mpType = 'app';
+
+const app = new Vue({
+  store,
+  ...App,
+});
+
+app.$mount();
