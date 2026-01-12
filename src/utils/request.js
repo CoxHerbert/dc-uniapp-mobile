@@ -25,6 +25,14 @@ const normalizeUrl = (url, params) => {
   return `${url}${sep}${query}`;
 };
 
+const joinUrl = (base, path) => {
+  if (!base) return path;
+  if (!path) return base;
+  const trimmedBase = base.replace(/\/$/, '');
+  const trimmedPath = path.startsWith('/') ? path : `/${path}`;
+  return `${trimmedBase}${trimmedPath}`;
+};
+
 const getResponseStatus = (res) => {
   return res?.data?.error_code ?? res?.data?.code ?? res?.statusCode;
 };
@@ -38,7 +46,10 @@ export default function request({
   authorization = true,
   withToken = true,
 }) {
-  const finalUrl = normalizeUrl(isAbsoluteUrl(url) ? url : `${baseUrl}${url}`, params);
+  const finalUrl = normalizeUrl(
+    isAbsoluteUrl(url) ? url : joinUrl(baseUrl, url),
+    params
+  );
   const requestHeaders = {
     'Blade-Requested-With': 'BladeHttpRequest',
     ...headers,
