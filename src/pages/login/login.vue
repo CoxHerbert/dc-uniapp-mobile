@@ -44,6 +44,7 @@
 <script>
 import { KEYS } from '@/constants/keys';
 import { extractLoginInfo } from '@/utils/login-info';
+import { encryptPassword } from '@/utils/sm2';
 
 export default {
   data() {
@@ -103,7 +104,7 @@ export default {
       try {
         const payload = await this.$store.dispatch('auth/loginByUsername', {
           ...this.form,
-          password: this.form.password,
+          password: encryptPassword(this.form.password),
         });
 
         try {
