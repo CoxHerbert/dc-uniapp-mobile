@@ -15,7 +15,7 @@ export default defineUniPages({
     // 导航栏配置
     navigationBarBackgroundColor: '@navBgColor',
     navigationBarTextStyle: '@navTxtStyle',
-    navigationBarTitleText: 'Wot Starter',
+    navigationBarTitleText: '联合东创',
 
     // 页面背景配置
     backgroundColor: '@bgColor',
@@ -32,21 +32,19 @@ export default defineUniPages({
     animationDuration: 300,
   },
   tabBar: {
-    custom: true,
-    // #ifdef MP-ALIPAY
-    customize: true,
-    // 暂时不生效。4.71.2025061206-alpha已修复：https://uniapp.dcloud.net.cn/release-note-alpha.html#_4-71-2025061206-alpha，我们等正式版发布后更新。
-    overlay: true,
-    // #endif
-    height: '0',
     color: '@tabColor',
     selectedColor: '@tabSelectedColor',
     backgroundColor: '@tabBgColor',
     borderStyle: '@tabBorderStyle',
     list: [{
-      pagePath: 'pages/index/index',
+      pagePath: 'pages/home/index',
+      text: '首页',
     }, {
-      pagePath: 'pages/about/index',
+      pagePath: 'pages/apps/index',
+      text: '工作台',
+    }, {
+      pagePath: 'pages/me/index',
+      text: '我的',
     }],
   },
 })
