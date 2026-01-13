@@ -2,8 +2,6 @@ import { createSSRApp } from 'vue';
 import { createPinia } from 'pinia';
 import App from './App.vue';
 import i18n from './locales';
-import WotDesign from 'wot-design-uni';
-import 'wot-design-uni/style';
 
 export function createApp() {
   const app = createSSRApp(App);
@@ -11,7 +9,6 @@ export function createApp() {
 
   app.use(pinia);
   app.use(i18n);
-  app.use(WotDesign);
 
   return {
     app,
